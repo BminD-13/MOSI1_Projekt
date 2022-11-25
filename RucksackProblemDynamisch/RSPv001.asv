@@ -1,0 +1,11 @@
+clear
+close all
+
+%% Data
+
+knapsackCapacity = 10;
+
+Capacity = [3,8,2,5,4,9,7,4,8,1]
+Value = []
+
+item = table(,);
