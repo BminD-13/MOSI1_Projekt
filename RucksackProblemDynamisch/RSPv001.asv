@@ -1,11 +1,36 @@
 clear
 close all
-
+clc
 %% Data
 
+% knapsack data
 knapsackCapacity = 10;
 
-Capacity = [3,8,2,5,4,9,7,4,8,1]
-Value = []
+% item data
+Capacity = [3,8,2,5,4,9,7,4,8,1]';
+Value = [7,4,8,4,5,3,6,7,5,6]';
 
-item = table(,);
+item = table(Capacity, Value);
+
+% algorithmus
+function [valueMax, itemsPicked] = knapsackDynamic(knapsackCapacity, item)
+
+sumTable = zeros(length(item.Capacity) + 1,knapsackCapacity);
+
+for cntItem = 1:length(item.Capacity)
+    for cntCap = 1:knapsackCapacity        
+        if cntCap < item.Capacity(cntItem)
+            valueAbove = sumTable(cntCap,cntItem);
+            sumTable(cntCap,cntItem + 1) = valueAbove;
+
+        else
+            valueItem = item.Value(cntItem);
+            valueDiagonal = sumTable(cntCap-item.Capacity(cntItem), cntItem);
+
+            sumTable(cntCap,cntItem + 1) = valueItem + valueDiagonal;
+
+        end
+    end
+end
+
+end
