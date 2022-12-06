@@ -2,16 +2,9 @@ clear
 close all
 clc
 %% Data
+P04
 
-% knapsack data
-knapsackCapacity = 7;
-
-% item data
-Capacity = [3,1,3,4,2]';
-Value = [2,2,4,5,3]';
-
-item = table(Capacity, Value);
-
+%% function call
 [a,b,c] = knapsackDynamic(knapsackCapacity, item);
 
 %% knapsack dynamic algorithm
@@ -25,39 +18,39 @@ sumTable = zeros(length(item.Capacity) + 1,knapsackCapacity);
 %% filling the knapsack table with the information 
 
 % iterate rows (items) of the table
-    for cntItem = 1:itemCount
+    for iRowAbove = 1:itemCount
+        iRowActual = iRowAbove +1;
 
     % iterate columns (knapsackCapacity) of the table
-        for cntCap = 1:knapsackCapacity+1        
+        for iColumnActual = 1:knapsackCapacity+1        
 
         % knapsack Capacity smaller than item capacity
-            if cntCap <= item.Capacity(cntItem)            
-                valueAbove = sumTable(cntItem, cntCap);
-    
-                sumTable(cntItem + 1, cntCap) = valueAbove;
+            if iColumnActual <= item.Capacity(iRowAbove)            
+                valueAbove = sumTable(iRowAbove, iColumnActual);    
+                sumTable(iRowActual, iColumnActual) = valueAbove;
 
         % knapsack Capacity bigger than item capacity
             else            
-                valueItem = item.Value(cntItem);
-                valueDiagonal = sumTable(cntItem, cntCap-item.Capacity(cntItem));
-    
-                sumTable(cntItem + 1, cntCap) = valueItem + valueDiagonal;    
+                valueItem = item.Value(iRowAbove);
+                columnCapShift = iColumnActual-item.Capacity(iRowAbove);
+                valueDiagonal = sumTable(iRowAbove, columnCapShift);    
+                sumTable(iRowActual, iColumnActual) = valueItem + valueDiagonal;    
             end
         end
     end
 
-valueMax = sumTable(length(item.Capacity) + 1,knapsackCapacity+1);
+    valueMax = sumTable(end, end);
 
 
 %% choosing most suitable items by evaluating the table
-columnActual = knapsackCapacity + 1;
+jColumnActual = knapsackCapacity + 1;
 items = linspace(itemCount+1,2,itemCount);
-for rowActual = items
-    rowAbove = rowActual-1;
+for jRowActual = items
+    jRowAbove = jRowActual-1;
 
-    if sumTable(rowActual, columnActual) > sumTable(rowAbove, columnActual)
-        itemsPicked(end+1) = rowActual-1;
-        columnActual = columnActual - item.Capacity(rowActual-1);
+    if sumTable(jRowActual, jColumnActual) > sumTable(jRowAbove, jColumnActual)
+        itemsPicked(end+1) = jRowAbove;
+        jColumnActual = jColumnActual - item.Capacity(jRowActual-1);
     end
 end
 
