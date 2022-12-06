@@ -2,7 +2,7 @@ clear
 close all
 clc
 %% Data
-P04
+P02
 
 %% function call
 [a,b,c] = knapsackDynamic(knapsackCapacity, item);
@@ -13,7 +13,7 @@ function [valueMax, sumTable, itemsPicked] = knapsackDynamic(knapsackCapacity, i
 %% declaration
 itemCount = length(item.Capacity);
 itemsPicked = [];
-sumTable = zeros(length(item.Capacity) + 1,knapsackCapacity);
+sumTable = zeros(length(item.Capacity) + 1,knapsackCapacity+1);
 
 %% filling the knapsack table with the information 
 
@@ -22,19 +22,25 @@ sumTable = zeros(length(item.Capacity) + 1,knapsackCapacity);
         iRowActual = iRowAbove +1;
 
     % iterate columns (knapsackCapacity) of the table
-        for iColumnActual = 1:knapsackCapacity+1        
+        for iColumnActual = 1:knapsackCapacity+1
 
-        % knapsack Capacity smaller than item capacity
-            if iColumnActual <= item.Capacity(iRowAbove)            
-                valueAbove = sumTable(iRowAbove, iColumnActual);    
+            valueAbove = sumTable(iRowAbove, iColumnActual);
+
+        % knapsack Capacity < item capacity
+            if iColumnActual <= item.Capacity(iRowAbove)
+                valueAbove = sumTable(iRowAbove, iColumnActual);
                 sumTable(iRowActual, iColumnActual) = valueAbove;
 
-        % knapsack Capacity bigger than item capacity
+        % knapsack Capacity >= item capacity
             else            
                 valueItem = item.Value(iRowAbove);
                 columnCapShift = iColumnActual-item.Capacity(iRowAbove);
-                valueDiagonal = sumTable(iRowAbove, columnCapShift);    
-                sumTable(iRowActual, iColumnActual) = valueItem + valueDiagonal;    
+                valueDiagonal = sumTable(iRowAbove, columnCapShift);
+                if valueItem + valueDiagonal >= valueAbove
+                    sumTable(iRowActual, iColumnActual) = valueItem + valueDiagonal; 
+                else
+                    sumTable(iRowActual, iColumnActual) = valueAbove;
+                end
             end
         end
     end
