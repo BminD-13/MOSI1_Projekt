@@ -1,18 +1,11 @@
-clear
-close all
-clc
-%% Data
-P02
-
-%% function call
-[a,b,c] = knapsackDynamic(knapsackCapacity, item);knapsackDynamic
-
 %% knapsack dynamic algorithm
-function [valueMax, sumTable, itemsPicked] = knapsackDynamic(knapsackCapacity, item)
+function [itemsPickedIdx, itemsPickedBinary, valueMax, sumTable] = knapsackDynamic(knapsackCapacity, item)
+% gives back the items needet for the max value
 
 %% declaration
 itemCount = length(item.Capacity);
-itemsPicked = [];
+itemsPickedIdx = [];
+itemsPickedBinary = zeros(itemCount,1);
 sumTable = zeros(length(item.Capacity) + 1,knapsackCapacity+1);
 
 %% filling the knapsack table with the information 
@@ -54,7 +47,8 @@ sumTable = zeros(length(item.Capacity) + 1,knapsackCapacity+1);
         jRowAbove = jRowActual-1;
     
         if sumTable(jRowActual, jColumnActual) > sumTable(jRowAbove, jColumnActual)
-            itemsPicked(end+1) = jRowAbove;
+            itemsPickedIdx(end+1) = jRowAbove;
+            itemsPickedBinary(jRowAbove) = 1;
             jColumnActual = jColumnActual - item.Capacity(jRowActual-1);
         end
     end
