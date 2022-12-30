@@ -416,7 +416,7 @@ P15.solution = [
     1
 ];
 
-%% P15 fehler kein integer
+%% P16 fehler kein integer
 P16.setName = "P16";
 P16.knapsackCapacity = 7.5;
 P16.itemCapacity = [3,1,3,4,2]';
@@ -429,8 +429,73 @@ P16.solution = [
     1
 ];
 
+%% P17 fehler kein integer
+P17.setName = "P17";
+P17.knapsackCapacity = 7;
+P17.itemCapacity = [3,2,3,4,2]';
+P17.itemValue = [2,2,4,5,3]';
+P17.solution = [
+    0
+    1
+    0
+    1
+    1
+];
+
+%% P18 fehler kein integer
+P18.setName = "P18";
+P18.knapsackCapacity = 7;
+P18.itemCapacity = [3,1,3,4,2]';
+P18.itemValue = [2,2,4,4,3]';
+P18.solution = [
+    0
+    1
+    0
+    1
+    1
+];
+
+%% P20 fehler kein integer
+P20.setName = "P20";
+P20.knapsackCapacity = 1;
+P20.itemCapacity = [3,7,3,4,2]';
+P20.itemValue = [2,2,4,5,3]';
+P20.solution = [
+    0
+    0
+    0
+    0
+    0
+];
+
+%% P21 fehler kein integer
+P21.setName = "P21";
+P21.knapsackCapacity = 100;
+P21.itemCapacity = [3,1,3,4,2]';
+P21.itemValue = [2,2,4,5,3]';
+P21.solution = [
+    1
+    1
+    1
+    1
+    1
+];
+
+%% P22 fehler kein integer
+P22.setName = "P22";
+P22.knapsackCapacity = 1000;
+P22.itemCapacity = randi([1 100],1,1000)';
+P22.itemValue = randi([1 100],1,1000)';
+P22.solution = [
+    0
+    1
+    0
+    1
+    1
+];
+
+
 %% liste aller datensätze
 listOfDataSets = [
-    P00, P01, P02, P03, P04, P05, P06, P07, P08, P10, P11, P12, P13, P14, P15, P16
-    %P20, P21, P22, P23, P24
+    P00, P01, P02, P03, P04, P05, P06, P07, P08, P10, P11, P12, P13, P14, P15, P16, P17, P18, P20, P21, P22
 ];

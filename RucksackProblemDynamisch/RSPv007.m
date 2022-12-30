@@ -3,10 +3,10 @@
 % Benjamind Daiber, Pascal Tammer
 
 %% Versionierung:
-% v001 -> 
-% v005 -> funktion des dynamischen algos ausgelagert
-% v006 -> validierung hinzugefuegt
-% v007 -> greedy einbinden
+% v0.01 -> dyn algo test
+% v0.05 -> funktion des dynamischen algos ausgelagert
+% v0.06 -> validierung hinzugefuegt
+% v0.07 -> validierung in schleifen mit geänderten und neuen datensätzen
 
 
 %% 
@@ -17,6 +17,7 @@ clc
 %% data sets
 DataSets
 
+%% aufruf der datensaetze in einer schleife
 for i = 1:length(listOfDataSets)
 
     setName             = listOfDataSets(i).setName;
