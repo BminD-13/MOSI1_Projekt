@@ -6,7 +6,7 @@
 % v001 -> 
 % v005 -> funktion des dynamischen algos ausgelagert
 % v006 -> validierung hinzugefuegt
-% v007 -> 
+% v007 -> greedy einbinden
 
 
 %% 
@@ -15,23 +15,28 @@ close all
 clc
 
 %% data sets
-P03
+DataSets
 
-%% function call
-[idx, binary, value, table] = knapsackDynamic(knapsackCapacity, item);
+for i = 1:length(listOfDataSets)
 
-%% validation
-"Tabelle"
-table
-"Maximaler Wert"
-value 
+    setName             = listOfDataSets(i).setName;
+    knapsackCapacity    = listOfDataSets(i).knapsackCapacity;
+    itemValue           = listOfDataSets(i).itemValue;
+    itemCapacity        = listOfDataSets(i).itemCapacity;
+    solution            = listOfDataSets(i).solution;
 
-
-if binary == solution 
-    "Ergebnis"
-    "true"
-else 
-    "Ergebnis"
-    "false"
-end
+    %% function call
+    [idx, binary, value, table] = knapsackDynamic(knapsackCapacity, itemValue, itemCapacity);
     
+    %% validation
+    try
+        if binary == solution
+            setName + " Ergebnis: true"
+        else
+            setName + " Ergebnis: false"
+        end
+    catch
+        setName + " Ergebnis: false"
+    end
+end % ende der schleife
+
